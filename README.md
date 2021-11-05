@@ -22,7 +22,6 @@ This library is written and maintained by [Kfir Aberman](https://kfiraberman.git
 
 ## Prerequisites
 
-- Linux or macOS
 - Python 3
 - CPU or NVIDIA GPU + CUDA CuDNN
 
@@ -42,16 +41,16 @@ Download and extract the test dataset from [Google Drive](https://docs.google.co
 
 To generate the demo examples with the pretrained model, run
 
-```bash
+```cmd
 cd retargeting
-sh demo.sh
+demo.bat
 ```
 
 The results will be saved in `retargeting/examples`.
 
 To reconstruct the quantitative result with the pretrained model, run
 
-```bash
+```cmd
 cd retargeting
 python test.py
 ```
@@ -59,13 +58,13 @@ python test.py
 The retargeted demo results, that consists both intra-structual retargeting and cross-structural retargeting, will be saved in `retargeting/pretrained/results`.
 
 <!-- The system support both in Intra-Structural retargeting:
-```bash
+```cmd
 python test.py -model_path retargeting/models/pretrained_retargeting.pth -input_A retargeting/examples/IS_motion_input -input_B retargeting/examples/IS_skeleton_input -edit_type retargeting
 ```
 (demo result GIF: input_motion, input_skeleton, output)
 
 and Cross-structural retargeting:
-```bash
+```cmd
 python test.py -model_path retargeting/models/pretrained_retargeting.pth -input_A retargeting/examples/CS_motion_input -input_B retargeting/examples/CS_skeleton_input -edit_type retargeting
 ```
 
@@ -79,7 +78,7 @@ python test.py -model_path retargeting/models/pretrained_retargeting.pth -input_
 
 The system support both in style from 3D MoCap data:
 
-```bash
+```cmd
 python test.py -model_path retargeting/models/pretrained_style_transfer.pth -input_A style_transfer/examples/content_input -input_B style_transfer/examples/3D_style_input -edit_type style_transfer
 ```
 
@@ -87,13 +86,13 @@ python test.py -model_path retargeting/models/pretrained_style_transfer.pth -inp
 
 and in style from 2D key-points (extracted from video):
 
-```bash
+```cmd
 python test.py -model_path retargeting/models/pretrained_style_transfer.pth -input_A style_transfer/examples/content_input -input_B style_transfer/examples/2D_style_input -edit_type style_transfer
 ```
 (demo result GIF: input_content, input_style_video, output) -->
 To receive the demo examples, simply run
-```bash
-sh style_transfer/demo.sh
+```cmd
+style_transfer/demo.bat
 ```
 The results will be saved in `style_transfer/demo_results`,
 where each folder contains the raw output `raw.bvh` and the output after footskate clean-up `fixed.bvh`.
@@ -121,14 +120,14 @@ Otherwise, if you want to download Mixamo dataset or use your own dataset, pleas
 
 #### Train
 After preparing dataset, simply run 
-```bash
+```cmd
 cd retargeting
 python train.py --save_dir=./training/
 ```
 
 It will use default hyper-parameters to train the model and save trained model in `retargeting/training` directory. More options are available in `retargeting/option_parser.py`. You can use tensorboard to monitor the training progress by running
 
-```bash
+```cmd
 tensorboard --logdir=./retargeting/training/logs/
 ```
 
@@ -142,9 +141,9 @@ tensorboard --logdir=./retargeting/training/logs/
 
 + Pre-process data for training:
 
-  ```bash
+  ```cmd
   cd style_transfer/data_proc
-  sh gen_dataset.sh
+  gen_dataset.bat
   ```
 
   This will produce `xia.npz`, `bfa.npz` in `style_transfer/data`.
@@ -152,7 +151,7 @@ tensorboard --logdir=./retargeting/training/logs/
 #### Train
 
 After downloading the dataset simply run
-```bash
+```cmd
 python style_transfer/train.py
 ```
 
@@ -230,7 +229,7 @@ Eevee (left) is a fast, real-time, render engine provides limited quality, while
 
 We provide a blender script that applies "skinning" to the output skeletons. You first need to download the fbx file which corresponds to the targeted character (for example, "[mousey](https://www.mixamo.com/#/?page=1&query=mousey&type=Character)"). Then, you can get a skinned animation by simply run
 
-```sh
+```cmd
 blender -P blender_rendering/skinning.py -- --bvh_file [bvh file path] --fbx_file [fbx file path]
 ```
 
