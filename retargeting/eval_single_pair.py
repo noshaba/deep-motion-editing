@@ -52,7 +52,9 @@ def main():
     # argsparse can't take space character as part of the argument
     args.input_bvh = recover_space(args.input_bvh)
     args.target_bvh = recover_space(args.target_bvh)
-    args.output_filename = recover_space(args.output_filename)
+    # args.output_filename = recover_space(args.output_filename)
+
+    args.output_filename = args.output_filename # windows 10 fix
 
     character_names, file_id, src_id = eval_prepare(args)
     input_character_name = args.input_bvh.split('/')[-2]
@@ -91,8 +93,9 @@ def main():
     model.set_input(input_motion)
     model.test()
 
-    os.system('cp "{}/{}/0_{}.bvh" "./{}"'.format(model.bvh_path, output_character_name, src_id, output_filename))
-
+    # os.system('cp "{}/{}/0_{}.bvh" "./{}"'.format(model.bvh_path, output_character_name, src_id, output_filename))
+    # Windows 10 fix
+    os.system('copy /Y "{}\\{}\\0_{}.bvh" "{}"'.format(model.bvh_path, output_character_name, src_id, output_filename))
 
 if __name__ == '__main__':
     main()
